@@ -1,10 +1,8 @@
-class ExperiencesController < ApplicationController
+class ProjectsController < ApplicationController
   def index
-    # Fetch all experiences, including their associated projects
     @experiences = Experience.includes(:projects).all
 
-    # Map the data to include experience details along with projects
-    experiences =  @experiences.map do |experience|
+    render json: @experiences.map do |experience|
       {
         id: experience.id,
         title: experience.title,
@@ -16,9 +14,8 @@ class ExperiencesController < ApplicationController
             description: project.description,
             link: project.link
           }
-        end
+        end || [] # Ensure an empty array if no projects are found
       }
     end
-    render json: experiences
   end
 end

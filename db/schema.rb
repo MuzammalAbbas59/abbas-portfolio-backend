@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_12_08_110931) do
+ActiveRecord::Schema.define(version: 2024_12_08_134301) do
 
   create_table "contacts", force: :cascade do |t|
     t.string "email"
@@ -38,4 +38,23 @@ ActiveRecord::Schema.define(version: 2024_12_08_110931) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "poetries", force: :cascade do |t|
+    t.string "title"
+    t.text "content"
+    t.string "content_type"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "projects", force: :cascade do |t|
+    t.string "title"
+    t.text "description"
+    t.string "link"
+    t.integer "experience_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["experience_id"], name: "index_projects_on_experience_id"
+  end
+
+  add_foreign_key "projects", "experiences"
 end
